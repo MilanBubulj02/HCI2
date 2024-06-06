@@ -1,0 +1,283 @@
+﻿<UserControl
+    x:Class="NetworkService.Views.EntitiesView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:NetworkService.Views"
+    xmlns:viewModel="clr-namespace:NetworkService.ViewModel"
+    xmlns:helpers="clr-namespace:NetworkService.Helpers"
+    mc:Ignorable="d"
+    d:DesignHeight="800"
+    d:DesignWidth="1320">
+
+    <UserControl.DataContext>
+        <viewModel:EntitiesViewModel />
+    </UserControl.DataContext>
+    <Grid Margin="2,12,-2,-12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="930" />
+            <ColumnDefinition
+                Width="410" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="170" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <DataGrid
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserReorderColumns="False"
+            Width="1320"
+            Height="529"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            ItemsSource="{Binding _Entities}"
+            SelectedItem="{Binding SelectedEntity}" Margin="0,111,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn
+                    Binding="{Binding IsSelected, Mode=TwoWay}" />
+                <DataGridTextColumn
+                    Header="Id"
+                    Binding="{Binding Id}" />
+                <DataGridTextColumn
+                    Header="Name"
+                    Binding="{Binding Name}" />
+                <DataGridTextColumn
+                    Header="Type"
+                    Binding="{Binding Type}" />
+                <DataGridTextColumn
+                    Header="Value"
+                    Binding="{Binding Value}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Rectangle 
+            Fill="#c6c5c5" 
+            Grid.ColumnSpan="2" 
+            Margin="0,0,20,0" 
+            Grid.Row="1" Height="160" 
+            VerticalAlignment="Bottom"/>
+
+        <Rectangle 
+            Fill="#c6c5c5" 
+            Grid.ColumnSpan="2" 
+            Margin="0,0,20,0" 
+            Height="111" 
+            VerticalAlignment="Top"/>
+
+        <TextBlock 
+            FontSize="40" 
+            Text="Table View:" 
+            VerticalAlignment="Top" 
+            FontWeight="Bold" 
+            Height="54" 
+            Width="220" 
+            Margin="10,28,0,0" 
+            HorizontalAlignment="Left"/>
+
+        <TextBlock
+            FontSize="20" 
+            Text="Type Selection:" 
+            VerticalAlignment="Top" 
+            FontWeight="Bold" 
+            Height="28" 
+            Width="186" 
+            Margin="428,4,0,0" 
+            HorizontalAlignment="Left" TextAlignment="Center"/>
+
+        <TextBlock
+            FontSize="20" 
+            Text="ID search:" 
+            VerticalAlignment="Top" 
+            FontWeight="Bold" 
+            Height="28" 
+            Width="180" 
+            Margin="626,4,0,0" 
+            HorizontalAlignment="Left" TextAlignment="Center"/>
+
+        <TextBlock 
+            Text="Add New Device" 
+            FontSize="30" 
+            Height="48" 
+            Width="250" 
+            VerticalAlignment="Top" 
+            Margin="545,464,135,0" 
+            Grid.Row="1" 
+            TextAlignment="Center" 
+            FontWeight="Bold"/>
+
+        <StackPanel
+            Width="304"
+            Orientation="Horizontal"
+            VerticalAlignment="Top"
+            Grid.Row="1"
+            Margin="54,523,572,0">
+            <TextBlock
+                Text="ID:"
+                FontWeight="Bold"
+                FontSize="25"
+                VerticalAlignment="Center" />
+            <TextBox
+                x:Name="IdTextBox"
+                Text="{Binding IdText}"
+                FontSize="20"
+                Width="200"
+                Height="32"
+                     Margin="25,0,0,0" />
+        </StackPanel>
+
+        <StackPanel
+            Width="350"
+            Orientation="Horizontal"
+            VerticalAlignment="Top"
+            Grid.Row="1"
+            Margin="367,523,213,0">
+
+            <TextBlock
+                Text="Name:"
+                FontWeight="Bold"
+                FontSize="25"
+                VerticalAlignment="Center" />
+
+            <TextBox
+                x:Name="NameTextBox"
+                Text="{Binding NameText}"
+                FontSize="20"
+                Width="200"
+                Height="32"
+                Margin="25,0,0,0" />
+        </StackPanel>
+
+
+        <StackPanel
+            Orientation="Vertical"
+            Grid.Row="1"
+            Margin="774,492,196,17" Grid.ColumnSpan="2">
+
+            <RadioButton
+                GroupName="Type"
+                Content="  Interval Meter"
+                IsChecked="{Binding IntervalChecked, Mode=TwoWay}"
+                FontSize="20"
+                VerticalContentAlignment="Center"
+                Margin="40,10,0,0" />
+
+            <RadioButton
+                GroupName="Type"
+                Content="  Smart Meter"
+                FontSize="20"
+                VerticalContentAlignment="Center"
+                Margin="40,5,0,0" />
+        </StackPanel>
+
+        <StackPanel
+            Orientation="Vertical"
+            Grid.Row="1"
+            Margin="64,510,64,17" Grid.Column="1">
+
+            <Button
+                Content="Add"
+                FontSize="20"
+                Height="48"
+                Width="166"
+                Command="{Binding AddEntityCommand}"
+                Cursor="Hand" />
+        </StackPanel>
+
+
+        <ComboBox 
+                  x:Name="MeterTypeComboBox" 
+                  SelectedIndex="0"
+                  FontSize="25"
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top" 
+                  Width="186" Height="48" 
+                  Margin="428,32,0,0" 
+                  VerticalContentAlignment="Center" 
+                  HorizontalContentAlignment="Center"
+                  ItemsSource="{Binding IsTypes}"
+                  SelectedItem="{Binding FilterType, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+        <TextBox
+            FontSize="22"
+            Height="48"
+            VerticalAlignment="Bottom"
+            Margin="626,0,124,90"
+            Text="{Binding IdTextBox}" />
+
+        <StackPanel 
+            Orientation="Vertical"
+            Margin="817,0,401,34" Grid.ColumnSpan="2">
+
+            <RadioButton
+                Content="Greater (&gt;)"
+                FontSize="20"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0,5,0,0" 
+                GroupName="LogicType"
+                IsChecked="{Binding IsGreaterChecked, Mode=TwoWay}" />
+
+            <RadioButton
+                GroupName="LogicType"
+                Content="Lesser (&lt;)"
+                FontSize="20"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0,5,0,0" 
+                IsChecked="{Binding IsLesserChecked, Mode=TwoWay}" />
+
+            <RadioButton
+                GroupName="LogicType"
+                Content="Equal (=)"
+                FontSize="20"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Left"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Margin="0,5,0,0" 
+                IsChecked="{Binding IsEqualChecked, Mode=TwoWay}" />
+        </StackPanel>
+
+        <Button
+            Content="Apply Filter"
+            FontSize="20"
+            Height="48"
+            Width="166"
+            VerticalAlignment="Top"
+            Margin="24,31,220,0"
+            Cursor="Hand"
+            Command="{Binding FilterCommand}" Grid.Column="1" />
+
+        <Button
+            Content="Reset"
+            FontSize="20"
+            Height="48"
+            Width="166"
+            VerticalAlignment="Top"
+            Margin="212,31,32,0"
+            Cursor="Hand"
+            Command="{Binding ClearFiltersCommand}" Grid.Column="1" />
+
+        <Button
+            Content="Delete"
+            FontSize="20"
+            Cursor="Hand"
+            Command="{Binding DeleteEntityCommand}"
+            Height="48"
+            Width="166"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Right"
+            Margin="0,0,519,90" />
+
+    </Grid>
+</UserControl>
+

@@ -1,0 +1,212 @@
+﻿<UserControl x:Class="NetworkService.Views.GraphView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NetworkService.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1320">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="140"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <Label
+                Content="Choose an Entity:"
+                FontSize="20"
+                Margin="0,12,20,12" />
+            <ComboBox
+                x:Name="EntityComboBox"
+                Foreground="Black"
+                Width="60"
+                FontSize="20"
+                Margin="10"
+                Background="#BBBBBB"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                ItemsSource="{Binding Entities}"
+                SelectedItem="{Binding SelectedEntity}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Id}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button
+                Content="Show"
+                Width="120"
+                Height="40"
+                FontSize="20"/>
+        </StackPanel>
+
+        <TextBlock 
+            FontSize="40" 
+            Text="Graph View:" 
+            VerticalAlignment="Top" 
+            FontWeight="Bold" 
+            Height="54" 
+            Width="220" 
+            Margin="10,20,0,0" 
+            HorizontalAlignment="Left"/>
+
+        <TextBlock 
+            FontSize="30" 
+            Text="kWh:" 
+            VerticalAlignment="Top" 
+            FontWeight="Bold" 
+            Height="54" 
+            Width="106" 
+            Margin="44,50,0,0" 
+            HorizontalAlignment="Left" Grid.Row="1"/>
+
+
+        <Canvas
+            Grid.Row="1"
+            Margin="150,50,50,50">
+
+            <Line X1="0" Y1="0"
+                  X2="0" Y2="450"
+                  StrokeThickness="3"
+                  Stroke="Black"/>
+            <Line X1="0" Y1="450"
+                  X2="1050" Y2="450"
+                  StrokeThickness="3"
+                  Stroke="Black" />
+
+            <Rectangle x:Name="Rectangle_1"
+               Width="40"
+               Fill="{Binding RecColor_1}"
+               Canvas.Left="130"
+               Height="{Binding HeightValue_1}"
+               Canvas.Top="{Binding TopPoint_1}" />
+
+            <Rectangle x:Name="Rectangle_2"
+               Width="40"
+               Fill="{Binding RecColor_2}"
+               Canvas.Left="280"
+               Height="{Binding HeightValue_2}"
+               Canvas.Top="{Binding TopPoint_2}" />
+
+            <Rectangle x:Name="Rectangle_3"
+               Width="40"
+               Fill="{Binding RecColor_3}"
+               Canvas.Left="430"
+               Height="{Binding HeightValue_3}"
+               Canvas.Top="{Binding TopPoint_3}" />
+
+            <Rectangle x:Name="Rectangle_4"
+               Width="40"
+               Fill="{Binding RecColor_4}"
+               Canvas.Left="580"
+               Height="{Binding HeightValue_4}"
+               Canvas.Top="{Binding TopPoint_4}" />
+
+            <Rectangle x:Name="Rectangle_5"
+               Width="40"
+               Fill="{Binding RecColor_5}"
+               Canvas.Left="730"
+               Height="{Binding HeightValue_5}"
+               Canvas.Top="{Binding TopPoint_5}" />
+
+            <!-- Text blocks that write out the current values -->
+            <TextBlock Text="{Binding RecText_1}"
+               Canvas.Left="135"
+               Canvas.Top="{Binding TextTopPoint_1}"
+               Width="30"
+               Height="30"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextAlignment="Center"
+               Padding="6"
+               Foreground="White"
+               Background="Transparent" />
+
+            <TextBlock Text="{Binding RecText_2}"
+               Canvas.Left="285"
+               Canvas.Top="{Binding TextTopPoint_2}"
+               Width="30"
+               Height="30"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextAlignment="Center"
+               Padding="6"
+               Foreground="White"
+               Background="Transparent" />
+
+            <TextBlock Text="{Binding RecText_3}"
+               Canvas.Left="435"
+               Canvas.Top="{Binding TextTopPoint_3}"
+               Width="30"
+               Height="30"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextAlignment="Center"
+               Padding="6"
+               Foreground="White"
+               Background="Transparent" />
+
+            <TextBlock Text="{Binding RecText_4}"
+               Canvas.Left="585"
+               Canvas.Top="{Binding TextTopPoint_4}"
+               Width="30"
+               Height="30"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextAlignment="Center"
+               Padding="6"
+               Foreground="White"
+               Background="Transparent" />
+
+            <TextBlock Text="{Binding RecText_5}"
+               Canvas.Left="735"
+               Canvas.Top="{Binding TextTopPoint_5}"
+               Width="30"
+               Height="30"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               TextAlignment="Center"
+               Padding="6"
+               Foreground="White"
+               Background="Transparent" />
+
+            <TextBlock Text="{Binding Time_1}"
+               Canvas.Left="135"
+               Canvas.Top="460"
+               Width="40"
+               FontSize="12"/>
+            <TextBlock Text="{Binding Time_2}"
+               Canvas.Left="285"
+               Canvas.Top="460"
+               Width="40"
+               FontSize="12"/>
+            <TextBlock Text="{Binding Time_3}"
+               Canvas.Left="435"
+               Canvas.Top="460"
+               Width="40"
+               FontSize="12"/>
+            <TextBlock Text="{Binding Time_4}"
+               Canvas.Left="585"
+               Canvas.Top="460"
+               Width="40"
+               FontSize="12"/>
+            <TextBlock Text="{Binding Time_5}"
+               Canvas.Left="735"
+               Canvas.Top="460"
+               Width="40"
+               FontSize="12"/>
+        </Canvas>
+        
+        <TextBlock 
+                FontSize="30" 
+                Text="Time:" 
+                FontWeight="Bold" 
+                Height="54" 
+                Width="106" 
+    HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1138,500,0,0" Grid.Row="1"/>
+    </Grid>
+</UserControl>
